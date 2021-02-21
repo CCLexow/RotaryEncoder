@@ -36,7 +36,7 @@ public:
   };
 
   // ----- Constructor -----
-  RotaryEncoder(uint8_t pin1, uint8_t pin2, LatchMode mode = LatchMode::FOUR0);
+  RotaryEncoder(uint8_t u08Pin1, uint8_t u08Pin2, LatchMode mode = LatchMode::FOUR0);
 
   // retrieve the current position
   int32_t getPosition();
