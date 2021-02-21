@@ -32,43 +32,43 @@ public:
   enum class LatchMode {
     FOUR3 = 1, // 4 steps, Latch at position 3 only (compatible to older versions)
     FOUR0 = 2, // 4 steps, Latch at position 0 (reverse wirings)
-    TWO03 = 3  // 2 steps, Latch at position 0 and 3 
+    TWO03 = 3  // 2 steps, Latch at position 0 and 3
   };
 
   // ----- Constructor -----
-  RotaryEncoder(int pin1, int pin2, LatchMode mode = LatchMode::FOUR0);
+  RotaryEncoder(uint8_t pin1, uint8_t pin2, LatchMode mode = LatchMode::FOUR0);
 
   // retrieve the current position
-  long getPosition();
+  int32_t getPosition();
 
   // simple retrieve of the direction the knob was rotated at. 0 = No rotation, 1 = Clockwise, -1 = Counter Clockwise
   Direction getDirection();
 
   // adjust the current position
-  void setPosition(long newPosition);
+  void setPosition(int32_t newPosition);
 
   // call this function every some milliseconds or by using an interrupt for handling state changes of the rotary encoder.
   void tick(void);
 
   // Returns the time in milliseconds between the current observed
-  unsigned long getMillisBetweenRotations() const;
+  uint32_t getMillisBetweenRotations() const;
 
   // Returns the RPM
-  unsigned long getRPM();
+  uint32_t getRPM();
 
 private:
-  int _pin1, _pin2; // Arduino pins used for the encoder.
-  
-  LatchMode _mode; // Latch mode from initialization
+  uint8_t _u08Pin1, _u08Pin2; // Arduino pins used for the encoder.
 
-  volatile int8_t _oldState;
+  LatchMode _eMode; // Latch mode from initialization
 
-  volatile long _position;        // Internal position (4 times _positionExt)
-  volatile long _positionExt;     // External position
-  volatile long _positionExtPrev; // External position (used only for direction checking)
+  volatile int8_t _i08OldState;
 
-  unsigned long _positionExtTime;     // The time the last position change was detected.
-  unsigned long _positionExtTimePrev; // The time the previous position change was detected.
+  volatile int32_t _i32Position;        // Internal position (4 times _i32PositionExt)
+  volatile int32_t _i32PositionExt;     // External position
+  volatile int32_t _i32PositionExtPrev; // External position (used only for direction checking)
+
+  uint32_t _u32PositionExtTime;     // The time the last position change was detected.
+  uint32_t _u32PositionExtTimePrev; // The time the previous position change was detected.
 };
 
 #endif
